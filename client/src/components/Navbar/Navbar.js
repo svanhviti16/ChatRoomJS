@@ -1,13 +1,10 @@
-/*import React from 'react';
+import React from 'react';
 
-const Navbar = (props) => {
+const Navbar = () => {
     return(
-        <div>
-            <ul>
-                <li>{props} - chat</li>
-            </ul>
+        <div className="navBar">
         </div>
     )
 }
 
-export default Navbar;*/
+export default Navbar;
