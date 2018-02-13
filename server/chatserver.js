@@ -17,7 +17,6 @@ rooms.lobby = new Room();
 rooms.lobby.setTopic("Welcome to the lobby!");
 
 io.on('connection', function (socket) {
-	console.log(socket);
 	//This gets performed when a user joins the server.
 	socket.on('adduser', function(username, fn){
 
@@ -100,7 +99,6 @@ io.on('connection', function (socket) {
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendmsg', function (data) {
-
 		var userAllowed = false;
 
 		//Check if user is allowed to send message.
@@ -120,6 +118,7 @@ io.on('connection', function (socket) {
 			};
 			rooms[data.roomName].addMessage(messageObj);
 			io.sockets.emit('updatechat', data.roomName, rooms[data.roomName].messageHistory);
+			console.log(msg);
 		}
 	});
 
