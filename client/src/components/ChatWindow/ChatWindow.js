@@ -5,10 +5,11 @@ class ChatWindow extends React.Component {
     componentDidMount() {
         // Register emission handler
         const { socket } = this.context;
-        socket.on('msg', (msg) => {
+        socket.on('sendmsg', (msg) => {
             // Update the message state
             let messages = Object.assign([], this.state.messages);
             messages.push(`${(new Date()).toLocaleTimeString()} - ${msg}`);
+            console.log(msg);
             this.setState({ messages });
         });
     }
@@ -16,15 +17,18 @@ class ChatWindow extends React.Component {
         super(props);
         this.state = {
             msg: '',
-            messages: []
+            messages: [],
+            user: 'sara'
         };
     }
     sendMessage() {
+        console.log(this.state.msg);
         const { socket } = this.context;
-        socket.emit('msg', this.state.msg);
+        socket.emit('sendmsg', this.state.msg, this.state.user);
         this.setState({ msg: '' });
     }
     render() {
+        console.log(this.state);
         const { messages, msg } = this.state;
         return (
             <div className="chat-window">

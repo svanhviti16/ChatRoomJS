@@ -7,7 +7,7 @@ import socket from 'socket.io-client';
 export default class MainContainer extends React.Component {
     render() {
         return(
-            <div className="chatContainer">
+            <div>
                 <Nickname iosocket={socket}>
                     <input type="text" onInput={(e) => onInput(e)} />
                 </Nickname>
