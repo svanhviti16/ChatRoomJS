@@ -1,9 +1,18 @@
 import React from 'react';
+import Nickname from '../Nickname/Nickname';
+import ChatWindow from '../ChatWindow/ChatWindow';
 
-export default class Container extends React.Component {
+import socket from 'socket.io-client';
+
+export default class MainContainer extends React.Component {
     render() {
         return(
-            <div className="chatContainer">{this.props.children}</div>
+            <div className="chatContainer">
+                <Nickname iosocket={socket}>
+                    <input type="text" onInput={(e) => onInput(e)} />
+                </Nickname>
+                <ChatWindow />
+            </div>
         );
     };
 };

@@ -1,39 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../styles/site';
-import Container from './components/Container';
-import Nickname from './components/Nickname';
-//import { BrowserRouter, Route, Link } from 'react-router-dom'
+import MainContainer from './components/MainContainer/MainContainer';
 import socketClient from 'socket.io-client';
-//import Popup from 'react-popup';
-//import Prompt from './components/Prompt';
-
-//var BrowserRouter = require('react-router-dom').BrowserRouter
-//var Route = require('react-router-dom').Route
-//var Link = require('react-router-dom').Link
-const socket = socketClient('http://localhost:8080');
+import { PropTypes } from 'prop-types';
 
 
 class App extends React.Component {
+    componentDidCatch(error, info) {
+        console.log(error, info);
+    }
+    getChildContext() {
+        return {
+            socket: socketClient('http://localhost:8080')
+        };
+    }
+    render() {
+        return (
+            <div className="container">
+                <ChatWindow />
+            </div>
+        );
+    }
+
+    
+    
     constructor(props) {
         super(props);
-        console.log(socket);
-
     }
     render() {
         return (
             <div>
                 
-                <Container>
-                    <h2>ChatRoom</h2>
-                </Container>
-                <Nickname iosocket={socket}>
-                    
-                    <input type="text" onInput={(e) => onInput(e)} /></Nickname>
+                <MainContainer>
+                    <div className="mainContainer">{this.props.children}</div>
+                </MainContainer>
             </div>
         );
     }
 }
 
+App.childContextTypes = {
+    socket: PropTypes.object.isRequired
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));
