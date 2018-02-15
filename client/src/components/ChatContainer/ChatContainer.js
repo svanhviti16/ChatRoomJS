@@ -7,9 +7,9 @@ import ChatView from '../ChatView/ChatView';
 const ChatContainer = () => {
     return(
         <div className="chatContainer">
-            <UserContainer />
-            <ChatView/>
             <RoomContainer/>
+            <ChatView/>
+            <UserContainer />
         </div>
     )
 }

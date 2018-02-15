@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
+
 class ChatWindow extends React.Component {
     componentDidMount() {
         // Register emission handler
@@ -18,13 +19,21 @@ class ChatWindow extends React.Component {
         this.state = {
             msg: '',
             messages: [],
-            user: 'sara'
+            room: ''
         };
     }
     sendMessage() {
         console.log(this.state.msg);
         const { socket } = this.context;
-        socket.emit('sendmsg', this.state.msg, this.state.user);
+        /*socket.on('updateusers', () => {
+            this.setState({users: username});
+            ATH: hvort að það verður að nota roomcontainer til að fá uppl. um usera í roomi?
+        })
+        */
+        socket.emit('sendmsg', this.state.msg.substring, function(available) {
+            if (available) {
+            }
+        });
         this.setState({ msg: '' });
     }
     render() {

@@ -1,44 +1,63 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 export default class Nickname extends React.Component {
+    
     constructor(props) {
         super(props);
-        this.state = {value: ''};
-        this.socket = props.iosocket;
-    
+        this.state = {
+            username: '',
+            users: []
+        };    
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     handleChange(event) {
-        this.setState({value: event.target.value});
+        console.log(event.target.value)
+        this.setState({username: event.target.value});
     }
     
     handleSubmit(event) {
-        var username = this.state.value;
-        alert('A name was submitted: ' + username);
-        iosocket.emit('adduser', username, () => {
-            if (success) {
-                console.log('yay');
-            }
-            
-       
-        });
+        const { socket } = this.context;
         event.preventDefault();
+        //this.setState({username: event.target.value});
+        console.log(event);
+        socket.emit('adduser', this.state.username, (available) => {
+            if (!available) {
+                this.state.username = '';
+            } else {
+                alert(this.state.username);
+
+            }
+        });
+        
     }
 
-    
-    
     render() {
+        console.log(this.state);
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label className="nick">
-                Enter your nickname:
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+            <div className="nick-window">
+                <form onSubmit={this.handleSubmit}>
+                    <div className="input-box">
+                        <label className="nick">
+                        Enter your nickname:
+                        </label>
+                        <input type="text" value={this.state.username} onChange={this.handleChange} />
+                        <input 
+                            type="submit" 
+                            value="Submit"
+                            className="input input-big"
+                        />
+                    </div>
+                </form>
+            </div>
         );
     }
+};
+//<button type="button" className="btn pull-right" onClick={() => this.handleSubmit()}>Submit</button>
+                    
+Nickname.contextTypes = {
+    socket: PropTypes.object.isRequired
 };
 

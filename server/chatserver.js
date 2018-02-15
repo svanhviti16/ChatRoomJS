@@ -26,7 +26,8 @@ io.on('connection', function (socket) {
 
 			//Store user object in global user roster.
 			users[username] = { username: socket.username, channels: {}, socket: this };
-			fn(true); // Callback, user name was available
+			fn(true); // Callback, user name was available'
+			console.log(username);
 		}
 		else {
 			fn(false); // Callback, it wasn't available
@@ -110,6 +111,8 @@ io.on('connection', function (socket) {
 		}
 
 		if(userAllowed) {
+			console.log(msg);
+
 			//Update the message history for the room that the user sent the message to.
 			var messageObj = {
 				nick : socket.username,

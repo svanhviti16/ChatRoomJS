@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-export default class RoomContainer extends React.Component {
+export default class Rooms extends React.Component {
 
     componentDidMount() {
         // Register emission handler
@@ -50,7 +50,7 @@ export default class RoomContainer extends React.Component {
 
     render() {
         return (
-            <div className="roomContainer">
+            <div className="room-window">
                 <ul>
                     {Object.keys(this.state.roomList).map(function(key) {
                         return <li key={key}>{key}</li>;
@@ -74,6 +74,6 @@ export default class RoomContainer extends React.Component {
     }
 }
     
-RoomContainer.contextTypes = {
+Rooms.contextTypes = {
     socket: PropTypes.object.isRequired
 };
