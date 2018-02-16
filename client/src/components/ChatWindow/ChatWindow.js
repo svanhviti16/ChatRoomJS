@@ -30,7 +30,7 @@ class ChatWindow extends React.Component {
             ATH: hvort að það verður að nota roomcontainer til að fá uppl. um usera í roomi?
         })
         */
-        socket.emit('sendmsg', this.state.msg.substring, function(available) {
+        socket.emit('sendmsg', this.state.msg, function(available) {
             if (available) {
             }
         });

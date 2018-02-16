@@ -14,7 +14,6 @@ export default class Nickname extends React.Component {
     }
     
     handleChange(event) {
-        console.log(event.target.value)
         this.setState({username: event.target.value});
     }
     

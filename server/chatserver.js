@@ -27,7 +27,6 @@ io.on('connection', function (socket) {
 			//Store user object in global user roster.
 			users[username] = { username: socket.username, channels: {}, socket: this };
 			fn(true); // Callback, user name was available'
-			console.log(username);
 		}
 		else {
 			fn(false); // Callback, it wasn't available
