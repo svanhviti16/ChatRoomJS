@@ -19,17 +19,17 @@ class ChatWindow extends React.Component {
         this.state = {
             msg: '',
             messages: [],
-            room: ''
         };
     }
     sendMessage() {
         console.log(this.state.msg);
         const { socket } = this.context;
-        /*socket.on('updateusers', () => {
-            this.setState({users: username});
-            ATH: hvort að það verður að nota roomcontainer til að fá uppl. um usera í roomi?
+        socket.on('updateusers', (room) => {
+            console.log('boo');
+            this.setState({roomName: room});
+            console.log(room);
         })
-        */
+        
         socket.emit('sendmsg', this.state.msg, function(available) {
             if (available) {
             }
