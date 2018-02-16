@@ -1,12 +1,12 @@
-import React from 'react';
+/*import React from 'react';
 import ChatWindow from '../ChatWindow/ChatWindow';
 
 const ChatView = (room) => {
     return(
         <div className="chatView">
-            <ChatWindow room={room}/>
+            <ChatWindow/>
         </div>
     )
 }
 
-export default ChatView;
+export default ChatView;*/

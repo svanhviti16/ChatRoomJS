@@ -19,26 +19,17 @@ class ChatWindow extends React.Component {
         this.state = {
             msg: '',
             messages: [],
-            roomName: this.props.room
+            room: 'lobby'
         };
     }
     sendMessage() {
-        console.log(this.props.room);
+        console.log(this.state.room);
         const { socket } = this.context;
-       /* socket.on('updateusers', (room) => {
-            console.log('yay');
-            this.setState({roomName: room});
-            console.log(room);
-        })*/
-        
-        socket.emit('sendmsg', this.state.msg, this.state.roomName);//, function(available) {
-          //  if (available) {
-           // }
-       // });
+        const data = {msg: this.state.msg, roomName: this.state.room};
+        socket.emit('sendmsg', data);
         this.setState({ msg: '' });
     }
     render() {
-        console.log(this.state);
         const { messages, msg } = this.state;
         return (
             <div className="chat-window">

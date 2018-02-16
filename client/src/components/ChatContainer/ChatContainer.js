@@ -1,7 +1,7 @@
 import React from 'react';
 import UserContainer from '../UserContainer/UserContainer';
 import RoomContainer from '../RoomContainer/RoomContainer';
-import ChatView from '../ChatView/ChatView';
+import ChatWindow from '../ChatWindow/ChatWindow';
 import { PropTypes } from 'prop-types';
 
 
@@ -16,6 +16,12 @@ class ChatContainer extends React.Component {
             console.log(this.state.roomList)
         })
         socket.emit('rooms');
+
+        socket.on('userlist', (users) => {
+            this.setState({userList: users});
+            console.log(this.state.userList)
+        })
+        socket.emit('users');
     }
 
     constructor(props) {
@@ -23,7 +29,8 @@ class ChatContainer extends React.Component {
         this.state = {
             room: '',
             pass: '',
-            roomList: []
+            roomList: [],
+            userList: []
             
         };    
         //        this.handleChange = this.handleChange.bind(this);
@@ -56,7 +63,7 @@ class ChatContainer extends React.Component {
         return(
             <div className="chatContainer">
                 <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList} />
-                <ChatView room={room}/>
+                <ChatWindow />
                 <UserContainer />
             </div>
         )

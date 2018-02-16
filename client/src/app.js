@@ -15,26 +15,14 @@ class App extends React.Component {
             socket: socketClient('http://localhost:8080')
         };
     }
-    render() {
-        return (
-            <div className="container">
-                <ChatWindow />
-            </div>
-        );
-    }
 
-    
-    
     constructor(props) {
         super(props);
     }
     render() {
         return (
             <div>
-                
-                <MainContainer>
-                    <div className="mainContainer">{this.props.children}</div>
-                </MainContainer>
+                <MainContainer />
             </div>
         );
     }

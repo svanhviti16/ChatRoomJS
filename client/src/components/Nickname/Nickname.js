@@ -7,7 +7,8 @@ export default class Nickname extends React.Component {
         super(props);
         this.state = {
             username: '',
-            users: []
+            room: 'lobby'
+            //users: []
         };    
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +29,13 @@ export default class Nickname extends React.Component {
             } else {
                 alert(this.state.username);
 
+            }
+        });
+        socket.emit('joinroom', this.state, (success) => {
+            if (!success) {
+                console.log('Banned');
+            } else {
+                socket.emit('rooms');
             }
         });
         

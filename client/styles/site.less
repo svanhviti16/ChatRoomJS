@@ -2,7 +2,7 @@
 
 body {
   //background-color: #fab;
-  background-color: blue;
+  //background-color: blue;
 
   .navBar {
     background-color: orange;
@@ -11,7 +11,7 @@ body {
   }
 
   .chatContainer {
-      background-color: red;
+      //background-color: red;
       display: flex;
       height: 500px;
       margin: 0 auto;
@@ -21,35 +21,30 @@ body {
         flex-grow: 1;
       }
 
-      .chatView {
-        background-color: purple;
+      .chat-window {
+        //background-color: navy;
         flex-grow: 2;
-      
-          .chat-window {
-              background-color: navy;
-              display: flex;
-              height: 500px;
-              //background-color: rgba(155, 155, 155, .1);
-              box-shadow: 2px 2px 10px rgba(155, 155, 155, .2);
+        height: 500px;
+        background-color: rgba(155, 155, 155, .1);
+        box-shadow: 2px 2px 10px rgba(155, 155, 155, .2);
 
-              .input-box { 
-                  flex-grow: 2;
-                  align-self: flex-end;
-                  height: 30px;
-                  .input {
-                      &.input-big {
-                          width: 89%;
-                          font-size: 1.2em;
-                      }
-                  }
-                  .btn {
-                      border-radius: 0px;
-                      font-size: 1.2em;
-                      background-color: rgba(50, 200, 50, .6);
-                      color: white;
-                  }
-              }
-          }
+        .input-box { 
+            flex-grow: 2;
+            align-self: flex-end;
+            height: 30px;
+            .input {
+                &.input-big {
+                    width: 89%;
+                    font-size: 1.2em;
+                }
+            }
+            .btn {
+                border-radius: 0px;
+                font-size: 1.2em;
+                background-color: rgba(50, 200, 50, .6);
+                color: white;
+            }
+        }
       }
 
       .roomContainer {
