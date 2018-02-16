@@ -42,7 +42,7 @@ export default class Nickname extends React.Component {
                         <label className="nick">
                         Enter your nickname:
                         </label>
-                        <input type="text" value={this.state.username} onChange={this.handleChange} />
+                        <input type="text" onChange={this.handleChange} />
                         <input 
                             type="submit" 
                             value="Submit"
