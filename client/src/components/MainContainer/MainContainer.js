@@ -6,14 +6,30 @@ import NavBar from '../NavBar/NavBar';
 import socket from 'socket.io-client';
 
 export default class MainContainer extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            usernameEntered: false
+        };    
+    }
+
+    onInput() {
+        this.setState({usernameEntered: true});
+    }
     render() {
+        let toRender = <ChatContainer />;
+        if (!this.state.usernameEntered) {
+            toRender = (
+                <Nickname iosocket={socket} onInput={this.onInput.bind(this)}>
+                    <input type="text" />
+                </Nickname>
+            )
+        }
         return(
             <div>
                 <NavBar/>
-                <ChatContainer />
-                <Nickname iosocket={socket}>
-                    <input type="text" onInput={(e) => onInput(e)} />
-                </Nickname>
+                {toRender}
             </div>
         );
     };

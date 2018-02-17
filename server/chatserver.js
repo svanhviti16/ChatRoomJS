@@ -48,7 +48,7 @@ io.on('connection', function (socket) {
 
 		//If the room does not exist
 		if(rooms[room] === undefined) {
-			console.log('UNDEFINE ROOM');
+			console.log('UNDEFINED ROOM');
 			rooms[room] = new Room();
 			//Op the user if he creates the room.
 			rooms[room].ops[socket.username] = socket.username;
@@ -68,7 +68,7 @@ io.on('connection', function (socket) {
 			io.sockets.emit('servermessage', "join", room, socket.username);
 		}
 		else {
-			console.log('ROOM LOBBY');
+			console.log('ROOM EXISTS');
 
 			//If the room isn't locked we set accepted to true.
 			if(rooms[room].locked === false) {

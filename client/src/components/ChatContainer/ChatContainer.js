@@ -22,12 +22,13 @@ class ChatContainer extends React.Component {
             console.log(this.state.userList)
         })
         socket.emit('users');
+        this.handleSubmit()
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            room: '',
+            room: 'lobby',
             pass: '',
             roomList: [],
             userList: []
@@ -45,8 +46,8 @@ class ChatContainer extends React.Component {
     }
     
     handleSubmit(event) {
-        const { socket } = this.context;
         event.preventDefault();
+        const { socket } = this.context;
         //this.setState({username: event.target.value});
         console.log(event);
         socket.emit('joinroom', this.state, (success) => {
@@ -56,6 +57,7 @@ class ChatContainer extends React.Component {
                 socket.emit('rooms');
             }
         });
+
     }
     
     render() {
@@ -63,7 +65,7 @@ class ChatContainer extends React.Component {
         return(
             <div className="chatContainer">
                 <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList} />
-                <ChatWindow />
+                <ChatWindow room={room} />
                 <UserContainer />
             </div>
         )
