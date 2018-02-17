@@ -22,7 +22,7 @@ class ChatContainer extends React.Component {
             console.log(this.state.userList)
         })
         socket.emit('users');
-        this.handleSubmit()
+        this.joinRoom();
     }
 
     constructor(props) {
@@ -40,16 +40,8 @@ class ChatContainer extends React.Component {
 
 
 
-    handleChange(event) {
-        console.log(event.target.value)
-        this.setState({room: event.target.value});
-    }
-    
-    handleSubmit(event) {
-        event.preventDefault();
+    joinRoom() {
         const { socket } = this.context;
-        //this.setState({username: event.target.value});
-        console.log(event);
         socket.emit('joinroom', this.state, (success) => {
             if (!success) {
                 console.log('Banned');
@@ -57,6 +49,18 @@ class ChatContainer extends React.Component {
                 socket.emit('rooms');
             }
         });
+    }
+    handleChange(event) {
+        console.log(event.target.value)
+        this.setState({room: event.target.value});
+    }
+    
+    handleSubmit(event) {
+        event.preventDefault();
+        //this.setState({username: event.target.value});
+        this.joinRoom();
+        console.log(event);
+        
 
     }
     
