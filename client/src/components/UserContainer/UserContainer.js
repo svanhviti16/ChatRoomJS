@@ -1,26 +1,29 @@
 import React from 'react';
 
-const UserContainer = ({ handleChange, handleSubmit, room, roomList}) => {
-    return(
-        <div className="userContainer">
+const UserContainer = ({ userListForRoom, userListForOps}) => {
+    let opsRender = '';
+    let userRender = '';
+    if (userListForOps != undefined) {
+        opsRender = (
             <ul>
-                {Object.keys(roomList).map(function(key) {
-                    return <li key={key}>{key}</li>;
+                {Object.keys(userListForOps).map(function(key) {
+                    return <li key={key}>@{userListForOps[key]}</li>;
+                })}
+            </ul>)
+    }
+    if (userListForRoom != undefined) {
+       userRender = (
+            <ul>
+                {Object.keys(userListForRoom).map(function(key) {
+                    return <li key={key}>{userListForRoom[key]}</li>;
                 })}
             </ul>
-            <form onSubmit={handleSubmit}>
-                <div className="input-box">
-                    <label className="room">
-                        Users:
-                    </label>
-                    <input type="text" value={room.users} onChange={handleChange} />
-                    <input 
-                        type="submit" 
-                        value="Submit"
-                        className="input input-big"
-                    />
-                </div>
-            </form>
+       ) 
+    }
+    return (
+        <div className="userContainer">
+            {opsRender}
+            {userRender}
         </div>
     )
 }

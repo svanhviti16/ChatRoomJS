@@ -280,7 +280,7 @@ io.on('connection', function (socket) {
 		for(var user in users) {
 			userlist.push(user);
 		}
-		socket.emit('userlist', userlist);
+		io.emit('userlist', userlist);
 	});
 
 	//Sets topic for room.

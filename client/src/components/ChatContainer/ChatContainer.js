@@ -17,11 +17,12 @@ class ChatContainer extends React.Component {
         })
         socket.emit('rooms');
 
-        socket.on('userlist', (users) => {
-            this.setState({userList: users});
-            console.log(this.state.userList)
+        socket.on('updateusers', (room, users, ops) => {
+            this.setState({userListForOps: ops});
+            this.setState({userListForRoom: users});
+            console.log('ops' + ops);
+            console.log('users' + users);
         })
-        socket.emit('users');
         this.joinRoom();
     }
 
@@ -31,11 +32,9 @@ class ChatContainer extends React.Component {
             room: 'lobby',
             pass: '',
             roomList: [],
-            userList: []
-            
+            userListForRoom: [],
+            userListForOps: []
         };    
-        //        this.handleChange = this.handleChange.bind(this);
-        //        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
@@ -65,12 +64,12 @@ class ChatContainer extends React.Component {
     }
     
     render() {
-        const {room, roomList} = this.state;
+        const {room, roomList, userListForRoom, userListForOps} = this.state;
         return(
             <div className="chatContainer">
                 <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList} />
                 <ChatWindow room={room} />
-                <UserContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList}/>
+                <UserContainer  userListForRoom={userListForRoom} userListForOps={userListForOps}/>
             </div>
         )
     }
