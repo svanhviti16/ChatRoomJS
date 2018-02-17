@@ -70,7 +70,7 @@ class ChatContainer extends React.Component {
             <div className="chatContainer">
                 <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList} />
                 <ChatWindow room={room} />
-                <UserContainer />
+                <UserContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList}/>
             </div>
         )
     }
