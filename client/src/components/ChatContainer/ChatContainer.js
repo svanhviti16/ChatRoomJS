@@ -64,16 +64,17 @@ class ChatContainer extends React.Component {
     }
     
     render() {
-        const {room, roomList, userListForRoom, userListForOps} = this.state;
+        const {roomList, room, userListForRoom, userListForOps} = this.state;
         return(
             <div className="chatContainer">
-                <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList} joinRoom={this.joinRoom} />
+                <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} joinRoom={this.joinRoom} room={room}  roomList={roomList}  />
                 <ChatWindow room={room} />
                 <UserContainer  userListForRoom={userListForRoom} userListForOps={userListForOps}/>
             </div>
         )
     }
 }
+//<RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} room={room}  roomList={roomList} joinRoom={this.joinRoom} />
 
 export default ChatContainer;
 

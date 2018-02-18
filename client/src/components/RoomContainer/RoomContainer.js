@@ -1,32 +1,49 @@
 import React from 'react';
-//import { PropTypes } from 'prop-types';
+import { PropTypes } from 'prop-types';
+
+//({ handleChange, handleSubmit, roomList, joinRoom })
+class RoomContainer extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.click = this.click.bind(this);
+    };
+
+    click() {
+        // const { socket } = this.context;
+        this.props.joinRoom();
+    }
 
 
-const RoomContainer = ({ handleChange, handleSubmit, room, roomList}) => {
-
-
-    return (
-        <div className="roomContainer">
-            <ul>
-                {Object.keys(roomList).map(function(key) {
-                    return <li key={key}>#{key}</li>;
-                })}
-            </ul>
-            <form onSubmit={handleSubmit}>
-                <div className="input-box">
-                    <label className="room">
-                        Enter a channel name:
-                    </label>
-                    <input type="text" value={room} onChange={handleChange} />
-                    <input 
-                        type="submit" 
-                        value="Submit"
-                        className="input input-big"
-                    />
-                </div>
-            </form>
-        </div>
-    );
+    render () {
+        return (
+            <div className="roomContainer">
+                <ul>
+                    {Object.keys(this.props.roomList).map((key) => {
+                        return ( 
+                            <li key={key}>
+                                <input type='button' value={key} onChange={this.props.handleChange} onClick={() => { this.click ; this.props.handleChange }} /> 
+                            </li>
+                        );
+                    })}
+                </ul>
+                <form onSubmit={this.props.handleSubmit}>
+                    <div className="input-box">
+                        <input type="text" placeholder="New room" onChange={this.props.handleChange} />
+                        <input 
+                            type="submit" 
+                            value="Submit"
+                            className="input input-big"
+                        />
+                    </div>
+                </form>
+            </div>
+        );
+    }
 };
     
 export default RoomContainer;
+
+RoomContainer.contextTypes = {
+    socket: PropTypes.object.isRequired
+};
