@@ -46,7 +46,6 @@ export default class Nickname extends React.Component {
         );
     }
 };
-//<button type="button" className="btn pull-right" onClick={() => this.handleSubmit()}>Submit</button>
                     
 Nickname.contextTypes = {
     socket: PropTypes.object.isRequired
