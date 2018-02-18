@@ -20,7 +20,7 @@ module.exports = {
     },
     watch: true,
     resolve: {
-        extensions: ['.js', '.jsx', '.less']
+        extensions: ['.png', '.js', '.jsx', '.less']
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),

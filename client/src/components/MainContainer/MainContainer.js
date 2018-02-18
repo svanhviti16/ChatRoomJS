@@ -21,7 +21,7 @@ export default class MainContainer extends React.Component {
         let toRender = <ChatContainer />;
         if (!this.state.usernameEntered) {
             toRender = (
-                <Nickname iosocket={socket} onInput={this.onInput.bind(this)}>
+                <Nickname className="nick" iosocket={socket} onInput={this.onInput.bind(this)}>
                     <input type="text" />
                 </Nickname>
             )

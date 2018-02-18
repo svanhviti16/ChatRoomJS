@@ -9,7 +9,7 @@ const RoomContainer = ({ handleChange, handleSubmit, room, roomList}) => {
         <div className="roomContainer">
             <ul>
                 {Object.keys(roomList).map(function(key) {
-                    return <li key={key}>{key}</li>;
+                    return <li key={key}>#{key}</li>;
                 })}
             </ul>
             <form onSubmit={handleSubmit}>

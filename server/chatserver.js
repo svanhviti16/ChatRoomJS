@@ -23,7 +23,6 @@ io.on('connection', function (socket) {
 		//Check if username is avaliable.
 		if (users[username] === undefined && username.toLowerCase != "server" && username.length < 21) {
 			socket.username = username;
-			console.log(socket.username);
 
 			//Store user object in global user roster.
 			users[username] = { username: socket.username, channels: {}, socket: this };
@@ -37,18 +36,13 @@ io.on('connection', function (socket) {
 	//When a user joins a room this processes the request.
 	socket.on('joinroom', function (joinObj, fn) {
 
-		console.log('joinObj.room:');
-		console.log(joinObj.room);
 		var room = joinObj.room;
-		console.log('rooms[room]:');
-		console.log(rooms[room]);
 		var pass = joinObj.pass;
 		var accepted = true;
 		var reason;
 
 		//If the room does not exist
 		if(rooms[room] === undefined) {
-			console.log('UNDEFINED ROOM');
 			rooms[room] = new Room();
 			//Op the user if he creates the room.
 			rooms[room].ops[socket.username] = socket.username;
@@ -62,13 +56,12 @@ io.on('connection', function (socket) {
 			users[socket.username].channels[room] = room;
 			//Send the room information to the client.
 			fn(true);
-			io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+			io.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 			//Update topic
 			socket.emit('updatetopic', room, rooms[room].topic, socket.username);
 			io.sockets.emit('servermessage', "join", room, socket.username);
 		}
 		else {
-			console.log('ROOM EXISTS');
 
 			//If the room isn't locked we set accepted to true.
 			if(rooms[room].locked === false) {
@@ -90,7 +83,6 @@ io.on('connection', function (socket) {
 			}
 			//If accepted is set to true at this point the user is allowed to join the room.
 			if(accepted) {
-				console.log('ACCEPTIN IN ROOM');
 				//We need to let the server know beforehand so that he starts to prepare the client template.
 				fn(true);
 				//Add user to room.
@@ -98,7 +90,7 @@ io.on('connection', function (socket) {
 				//Keep track of the room in the user object.
 				users[socket.username].channels[room] = room;
 				//Send the room information to the client.
-				io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+				io.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 				socket.emit('updatechat', room, rooms[room].messageHistory);
 				socket.emit('updatetopic', room, rooms[room].topic, socket.username);
 				io.sockets.emit('servermessage', "join", room, socket.username);
@@ -110,23 +102,17 @@ io.on('connection', function (socket) {
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendmsg', function (data) {
 		var userAllowed = false;
-		console.log('data.roomName:');
-		console.log(data.roomName);
 
 		//Check if user is allowed to send message.
 		if(rooms[data.roomName].users[socket.username] !== undefined) {
-			console.log('users-TURE');
 			userAllowed = true;
 		}
 		if(rooms[data.roomName].ops[socket.username] !== undefined) {
-			console.log('ops-TRUE');
 			userAllowed = true;
 		}
 
 		if(userAllowed) {
-			console.log('ALLOWED');
 
-			console.log(data.msg);
 			//Update the message history for the room that the user sent the message to.
 			var messageObj = {
 				nick : socket.username,
@@ -135,7 +121,6 @@ io.on('connection', function (socket) {
 			};
 			rooms[data.roomName].addMessage(messageObj);
 			io.sockets.emit('updatechat', data.roomName, rooms[data.roomName].messageHistory);
-			console.log(data.msg);
 		}
 	});
 
@@ -159,7 +144,7 @@ io.on('connection', function (socket) {
 		//Remove the channel from the user object in the global user roster.
 		delete users[socket.username].channels[room];
 		//Update the userlist in the room.
-		io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+		io.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 		io.sockets.emit('servermessage', "part", room, socket.username);
 	});
 
@@ -172,7 +157,7 @@ io.on('connection', function (socket) {
 				//Remove the user from users/ops lists in the rooms he's currently in.
 				delete rooms[room].users[socket.username];
 				delete rooms[room].ops[socket.username];
-				io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+				io.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 			}
 
 			//Broadcast the the user has left the channels he was in.
@@ -194,7 +179,7 @@ io.on('connection', function (socket) {
 			//Broadcast to the room who got kicked.
 			io.sockets.emit('kicked', kickObj.room, kickObj.user, socket.username);
 			//Update user list for room.
-			io.sockets.emit('updateusers', kickObj.room, rooms[kickObj.room].users, rooms[kickObj.room].ops);
+			io.emit('updateusers', kickObj.room, rooms[kickObj.room].users, rooms[kickObj.room].ops);
 			fn(true);
 		}
 		else {
@@ -213,7 +198,7 @@ io.on('connection', function (socket) {
 			//Broadcast to the room who got opped.
 			io.sockets.emit('opped', opObj.room, opObj.user, socket.username);
 			//Update user list for room.
-			io.sockets.emit('updateusers', opObj.room, rooms[opObj.room].users, rooms[opObj.room].ops);
+			io.emit('updateusers', opObj.room, rooms[opObj.room].users, rooms[opObj.room].ops);
 			fn(true);
 		}
 		else {
@@ -233,7 +218,7 @@ io.on('connection', function (socket) {
 			//Broadcast to the room who got opped.
 			io.sockets.emit('deopped', deopObj.room, deopObj.user, socket.username);
 			//Update user list for room.
-			io.sockets.emit('updateusers', deopObj.room, rooms[deopObj.room].users, rooms[deopObj.room].ops);
+			io.emit('updateusers', deopObj.room, rooms[deopObj.room].users, rooms[deopObj.room].ops);
 			fn(true);
 		}
 		else {
@@ -250,7 +235,7 @@ io.on('connection', function (socket) {
 			rooms[banObj.room].banUser(banObj.user);
 			//Kick the user from the room.
 			io.sockets.emit('banned', banObj.room, banObj.user, socket.username);
-			io.sockets.emit('updateusers', banObj.room, rooms[banObj.room].users, rooms[banObj.room].ops);
+			io.emit('updateusers', banObj.room, rooms[banObj.room].users, rooms[banObj.room].ops);
 			fn(true);
 		}
 		fn(false);
@@ -280,7 +265,7 @@ io.on('connection', function (socket) {
 		for(var user in users) {
 			userlist.push(user);
 		}
-		io.emit('userlist', userlist);
+		socket.emit('userlist', userlist);
 	});
 
 	//Sets topic for room.

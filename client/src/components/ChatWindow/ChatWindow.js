@@ -14,34 +14,39 @@ class ChatWindow extends React.Component {
     
     componentDidMount() {
         const { socket } = this.context;
-        socket.on('updatechat', (room, msgs) => {
-            let messages = Object.assign([]);
+        socket.on('updatechat', (room, messages) => {
+            //let messages = Object.assign([]);
             // Update the message state
-            messages = msgs;
+            //messages = msgs;
             this.setState({messageHistory: messages});
-            console.log(msgs);
+            //console.log(msgs);
         });
     }
     sendMessage () {
-        console.log(this.props);
+        event.preventDefault();
         const { socket } = this.context;
         const data = {msg: this.state.msg, roomName: this.props.room};
         socket.emit('sendmsg', data);
-        // this.setState({ msg: '' });
+        this.setState({msg: '' }); 
+        console.log(this.state.msg);
+        // this.state.setNativeProps({msg:''})
     }
+
     render() {
         return (
             <div className="chat-window">
                 {this.state.messageHistory.map(m => ( <div key={m.timestamp}>{new Date(m.timestamp).toLocaleTimeString()} - {m.nick}: {m.message}</div> ))}
-                <div className="input-box">
-                    <input
-                        type="text"
-                        //value={msg}
-                        className="input input-big"
-                        onInput={(e) => this.setState({ msg: e.target.value })} 
-                    />
-                    <button type="button" className="btn pull-right" onClick={() => this.sendMessage()}>Send</button>
-                </div>
+                <form onSubmit={(e) => { this.sendMessage(); e.preventDefault(); }}>
+                    <div className="input-box">
+                        <input
+                            type="text"
+                            value={this.state.msg}
+                            className="input input-big"
+                            onInput={(e) => this.setState({ msg: e.target.value })} 
+                        />
+                        <input type="submit" value="Submit" className="btn pull-right"/>
+                    </div>
+                </form>
             </div>
         );
     }
