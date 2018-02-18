@@ -12,13 +12,13 @@ const UserContainer = ({ userListForRoom, userListForOps}) => {
             </ul>)
     }
     if (userListForRoom != undefined) {
-       userRender = (
+        userRender = (
             <ul>
                 {Object.keys(userListForRoom).map(function(key) {
                     return <li key={key}>{userListForRoom[key]}</li>;
                 })}
             </ul>
-       ) 
+        ) 
     }
     return (
         <div className="userContainer">
