@@ -10,13 +10,8 @@ class RoomContainer extends React.Component {
     }
     constructor(props) {
         super(props);
-        this.click = this.click.bind(this);
+        // this.click = this.click.bind(this);
     };
-
-    click() {
-        // const { socket } = this.context;
-        this.props.joinRoom();
-    }
 
     render () {
         return (
@@ -28,26 +23,41 @@ class RoomContainer extends React.Component {
                                 <input 
                                     type='button' 
                                     value={key} 
-                                    onChange={(e) => { this.click; this.props.handleChange(e) }} 
-                                    onClick={(e) => { this.click; this.props.handleChange(e) }} /> 
+                                    onChange={() => { this.click }} //this.props.handleChange(e) 
+                                    onClick={(e) => { this.click; this.props.handleChange(e); this.props.handleSubmit(e) }} /> 
                             </li>
                         );
                     })}
                 </ul>
                 <form onSubmit={this.props.handleSubmit}>
                     <div className="input-box">
-                        <input type="text" placeholder="New room" onChange={this.props.handleChange} />
+                        <input 
+                            type="text" 
+                            placeholder="New room" 
+                            onChange={this.props.handleChange} />
                         <input 
                             type="submit" 
-                            value="Submit"
+                            value="Send"
                             className="input input-big"
                         />
+                    </div>
+                </form>
+                <form onSubmit={this.props.handleLeaveSubmit}>
+                    <div className="leave-room">
+                        <input 
+                            type="submit" 
+                            value="Leave room" 
+                            className="input input-big"
+                            onChange={this.props.handleLeaveChange} />
+
+                        
                     </div>
                 </form>
             </div>
         );
     }
 };
+
     
 export default RoomContainer;
 
