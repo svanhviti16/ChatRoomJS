@@ -13,38 +13,39 @@ class RoomContainer extends React.Component {
         // this.click = this.click.bind(this);
     };
 
+
+
     render () {
         return (
             <div className="roomContainer">
-                <ul className="input-box">
+                <ul>
                     {Object.keys(this.props.roomList).map((key) => {
                         return ( 
                             <li key={key}>
-                                <input 
+                                <input className="button button4"
                                     type='button' 
                                     value={key} 
-                                    onChange={() => { this.click }} //this.props.handleChange(e) 
-                                    onClick={(e) => { this.click; this.props.handleChange(e); this.props.handleSubmit(e) }} /> 
+                                    onClick={(e) => { this.props.handleChange(e); this.props.handleSubmit(e); this.updateMessege(e) }} /> 
                             </li>
                         );
                     })}
                 </ul>
-                <form onSubmit={this.props.handleSubmit}>
+                <form onSubmit={this.props.handleSubmit} >
                     <div>
-                        <input type="text" placeholder="New room" onChange={this.props.handleChange} />
+                        <input className="textNewRoom" type="text" placeholder="New room" onChange={this.props.handleChange} />
                         <input 
                             type="submit" 
                             value="▶"
-                            className="inputs"
+                            className="button buttonNewRoom"
                         />
                     </div>
                 </form>
                 <form onSubmit={this.props.handleLeaveSubmit}>
-                    <div className="leave-room">
+                    <div>
                         <input 
                             type="submit" 
                             value="Leave room" 
-                            className="input input-big"
+                            className="button buttonLeaveRoom"
                             onChange={this.props.handleLeaveChange} />
 
                         

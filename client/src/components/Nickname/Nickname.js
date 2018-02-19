@@ -40,7 +40,7 @@ export default class Nickname extends React.Component {
         return (
             <div className="nick-window">
                 <form onSubmit={this.handleSubmit}>
-                    <div className="input-box">
+                    <div>
                         <input type="text" className="inputs" placeholder="Enter your nickname" onChange={this.handleChange} />
                         <input type="submit" className="inputs" id="enterbutton" value="▶" className="input input-big" />
                     </div>
