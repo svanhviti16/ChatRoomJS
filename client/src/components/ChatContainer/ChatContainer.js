@@ -18,10 +18,12 @@ class ChatContainer extends React.Component {
         socket.emit('rooms');
 
         socket.on('updateusers', (room, users, ops) => {
-            this.setState({userListForOps: ops});
-            this.setState({userListForRoom: users});
-            console.log('ops' + ops);
-            console.log('users' + users);
+            if(room === this.state.room) {
+                this.setState({userListForOps: ops});
+                this.setState({userListForRoom: users});
+                console.log('ops' + ops);
+                console.log('users' + users);
+            }
         })
         this.joinRoom();
     }
