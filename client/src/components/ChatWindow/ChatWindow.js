@@ -36,7 +36,7 @@ class ChatWindow extends React.Component {
         return (
             <div className="chat-window">
                 {this.state.messageHistory.map(m => ( <div key={m.timestamp}>{new Date(m.timestamp).toLocaleTimeString()} - {m.nick}: {m.message}</div> ))}
-                <form onSubmit={(e) => this.sendMessage(e)}>
+                <form onSubmit={(e) => { this.sendMessage(e) }}>
                     <div className="input-box">
                         <input
                             type="text"
