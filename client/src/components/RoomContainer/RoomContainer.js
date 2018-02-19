@@ -25,7 +25,7 @@ class RoomContainer extends React.Component {
                                 <input className="button button4"
                                     type='button' 
                                     value={key} 
-                                    onClick={(e) => { this.props.handleChange(e); this.props.handleSubmit(e); this.updateMessege(e) }} /> 
+                                    onClick={(e) => { this.props.handleChange(e); this.props.handleSubmit(e); }} /> 
                             </li>
                         );
                     })}
