@@ -25,7 +25,9 @@ export default class Nickname extends React.Component {
         console.log(event);
         socket.emit('adduser', this.state.username, (available) => {
             console.log(available);
-            if (!available || available === '') {
+            if (available == '') {
+                alert('Have to input nickname!');
+            }else if(!available) {
                 alert('That nickename is taken!');
             } else {
                 this.props.onInput();

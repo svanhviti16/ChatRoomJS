@@ -26,13 +26,34 @@ body {
         height: 500px;
         background-color: rgba(155, 155, 155, .1);
         box-shadow: 2px 2px 10px rgba(155, 155, 155, .2);
+            .scroll {
+              height:385px;
+              overflow:auto;
+            }
+            .roomname {
+              background-color:  rgba(94, 92, 92, 0.11);
+              color: rgba(50, 200, 50, .6);
+              margin: 0px;
+              padding-top: 10px;
+              height: 34px;
+              font-size: 21px;
+              text-align: center;
+              font-family: Arial, Helvetica;
+            }
+            .textLook {
+              padding: 4px;
+              font-size: 15px;
+              font-family: Arial, Helvetica;
+            }
 
         .input-box { 
-            flex-grow: 2;
-            align-self: flex-end;
-            height: 30px;
+            display: flex;
+            align-content: flex-start;
             .input {
+              flex-grow: 2;
+              
                 &.input-big {
+                    flex-grow: 1;
                     width: 89%;
                     font-size: 1.2em;
                 }
@@ -42,6 +63,7 @@ body {
                 font-size: 1.2em;
                 background-color: rgba(50, 200, 50, .6);
                 color: white;
+            
             }
         }
       }
@@ -49,6 +71,25 @@ body {
       .roomContainer {
         background-color: orchid;
         flex-grow: 1;
+              .inputs {
+                //border-radius: 0px;
+                box-sizing: border-box;
+                font-size: 100%;
+                background-color: white;
+                color: orange;
+                padding: 16px;
+              }
+         
+              ul li input:hover {
+                background: #888;
+              }
+
+              /* When clicked on, add a background color and strike out text */
+              ul li.check {
+                background: #888;
+                color: aqua;
+              }
+
       }
   }
   .pull-right {
@@ -62,12 +103,12 @@ body {
     margin: 80px auto 0;
     width: 290px;
     padding: 40px;
+      .inputs {
+        display: inline;
+        text-align: center; 
+        font-size: 100%;
+      }
   }  
-  .inputs {
-    display: inline;
-    text-align: center; 
-    font-size: 100%;
-  }
 
   input[type="text"], input[type="submit"] {
     padding: 12px 30px;

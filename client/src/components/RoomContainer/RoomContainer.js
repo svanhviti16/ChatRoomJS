@@ -18,22 +18,22 @@ class RoomContainer extends React.Component {
     render () {
         return (
             <div className="roomContainer">
-                <ul>
+                <ul className="input-box">
                     {Object.keys(this.props.roomList).map((key) => {
                         return ( 
                             <li key={key}>
-                                <input type='button' value={key} onChange={this.props.handleChange} onClick={() => { this.click ; this.props.handleChange }} /> 
+                                <input type='button' className="inputs" value={key} onChange={this.props.handleChange} onClick={() => { this.click ; this.props.handleChange ; }} /> 
                             </li>
                         );
                     })}
                 </ul>
                 <form onSubmit={this.props.handleSubmit}>
-                    <div className="input-box">
+                    <div>
                         <input type="text" placeholder="New room" onChange={this.props.handleChange} />
                         <input 
                             type="submit" 
-                            value="Submit"
-                            className="input input-big"
+                            value="▶"
+                            className="inputs"
                         />
                     </div>
                 </form>

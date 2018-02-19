@@ -35,7 +35,10 @@ class ChatWindow extends React.Component {
     render() {
         return (
             <div className="chat-window">
-                {this.state.messageHistory.map(m => ( <div key={m.timestamp}>{new Date(m.timestamp).toLocaleTimeString()} - {m.nick}: {m.message}</div> ))}
+                <h2 className="roomname">{this.props.room}</h2>
+                <div className="scroll">
+                    {this.state.messageHistory.map(m => ( <div className="textLook" key={m.timestamp}>{new Date(m.timestamp).toLocaleTimeString()} - {m.nick}: {m.message}</div> ))}
+                </div>
                 <form onSubmit={(e) => { this.sendMessage(e) }}>
                     <div className="input-box">
                         <input
@@ -44,7 +47,7 @@ class ChatWindow extends React.Component {
                             className="input input-big"
                             onInput={(e) => this.setState({ msg: e.target.value })} 
                         />
-                        <input type="submit" value="Submit" className="btn pull-right"/>
+                        <input type="submit" value="Send" className="btn pull-right"/>
                     </div>
                 </form>
             </div>
