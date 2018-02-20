@@ -28,8 +28,7 @@ export default class MainContainer extends React.Component {
         }
         return(
             <div>
-                {this.state.username}
-                <NavBar/>
+                <NavBar  username={this.state.username} />
                 {toRender}
             </div>
         );

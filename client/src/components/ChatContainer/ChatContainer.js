@@ -34,7 +34,7 @@ class ChatContainer extends React.Component {
             console.log(this.state.roomList)
         })
 
-        this.joinRoom();
+        this.joinRoom('lobby');
 
     }
 
@@ -52,16 +52,39 @@ class ChatContainer extends React.Component {
         
     }
 
-    joinRoom() {
+    joinRoom(newRoom) {
+        console.log('í joinroom, newroom:');
+        console.log(newRoom);
+        console.log('týpan á newroom:');
+        console.log(typeof(newRoom));
+        //this.setState({room: newRoom});
+        console.log('í joinroom, this.state.room:');
+        console.log(this.state.room);
+        
+
         const { socket } = this.context;
-        socket.emit('rooms');
-        socket.emit('joinroom', this.state, (success) => {
+        console.log('fyrir emit');
+        console.log({'room' : newRoom});
+        socket.emit('joinroom', {'room' : newRoom}, (success) => {
             if (!success) {
+                console.log(this.state.room);
                 console.log('Banned');
+                socket.emit('rooms');
             } else {
+                console.log('success');
+                console.log(this.state.room);
+                this.setState({room: newRoom});
                 socket.emit('rooms');
             }
+
         });
+
+        console.log('komin út úr, hér er this.state.room:');
+
+        console.log(this.state.room);
+
+        //socket.emit('rooms');
+
     }
 
     partRoom() {
@@ -70,47 +93,60 @@ class ChatContainer extends React.Component {
         socket.emit('partroom', this.state.room);
         this.setState({room: 'lobby'});
 
-        socket.on('updateusers', (room, users, ops) => {
+       /* socket.on('updateusers', (room, users, ops) => {
 
             this.setState({userListForOps: ops});
             this.setState({userListForRoom: users});
             console.log('ops' + ops);
             console.log('users' + users);
-        })
+        })*/
 
     }
     handleLeaveChange(event) {
-        console.log(event.target.value)
+        console.log(event.props.value)
         this.setState({room: 'lobby'});
     }
     handleLeaveSubmit(event) {
         event.preventDefault();
         //this.setState({username: event.target.value});
         this.partRoom();
+        console.log('leave room');
         console.log(event);
-    }
-    onChildClicked() {
-        this.setState({childWasClicked : !this.state.childWasClicked });
     }
 
     handleChange(event) {
+        console.log('event.target.value í handlechange')
+
         console.log(event.target.value)
         this.setState({room: event.target.value});
+        console.log('í handlechange');
+
     }
     
-    handleSubmit(event) {
+    handleSubmit() {
         event.preventDefault();
-        //this.setState({username: event.target.value});
-        this.joinRoom();
-        console.log(event);
+        //this.setState({room: event.target.value});
+
+        console.log('í handlesubmit, event.target.value');
+        // const newRoom = event.target.value;
+        console.log(event.target.value);
+
+        this.joinRoom(event.target.value);
         
     }
     
+    /* kickUser(event) {
+        if (this.state.username in this.state.userListForOps) {             
+            socket.emit('kick', function (event) {
+
+            }
+        }
+    }*/
     render() {
         const {roomList, room, userListForRoom, userListForOps } = this.state;
         return(
             <div className="chatContainer">
-                <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} handleLeaveSubmit={this.handleLeaveSubmit.bind(this)} joinRoom={this.joinRoom} partRoom={this.partRoom} room={room}  roomList={roomList} />
+                <RoomContainer handleChange={this.handleChange.bind(this)} handleSubmit={this.handleSubmit.bind(this)} handleLeaveSubmit={this.handleLeaveSubmit.bind(this)} joinRoom={this.joinRoom} partRoom={this.partRoom}  roomList={roomList} />
                 <ChatWindow  room={room} />
                 <UserContainer userListForRoom={userListForRoom} userListForOps={userListForOps}/>
             </div>
