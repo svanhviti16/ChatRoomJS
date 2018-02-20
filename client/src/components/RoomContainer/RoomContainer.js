@@ -1,16 +1,13 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-//({ handleChange, handleSubmit, roomList, joinRoom })
 class RoomContainer extends React.Component {
 
     componentDidMount() {
         // Register emission handler
-
     }
     constructor(props) {
         super(props);
-        // this.click = this.click.bind(this);
     };
 
     handleRoomChange(e) {
@@ -49,9 +46,7 @@ class RoomContainer extends React.Component {
                             type="submit" 
                             value="Leave room" 
                             className="input input-big"
-                            onChange={this.props.handleLeaveChange} />
-
-                        
+                            onChange={this.props.handleLeaveChange} />                       
                     </div>
                 </form>
             </div>

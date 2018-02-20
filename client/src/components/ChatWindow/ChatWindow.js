@@ -15,12 +15,7 @@ class ChatWindow extends React.Component {
     componentDidMount() {
         const { socket } = this.context;
         socket.on('updatechat', (room, messages) => {
-            //let messages = Object.assign([]);
-            // Update the message state
-            //messages = msgs;
             this.setState({messageHistory: messages});
-            //console.log(msgs);
-            
         });
     }
     sendMessage (event) {
@@ -29,14 +24,12 @@ class ChatWindow extends React.Component {
         const data = {msg: this.state.msg, roomName: this.props.room};
         socket.emit('sendmsg', data);
         this.setState({msg: '' }); 
-        console.log(this.state.msg);
-        // this.state.setNativeProps({msg:''})
     }
 
     render() {
         return (
             <div className="chat-window">
-                <h2 className="roomname">{this.props.room}</h2>
+                <h2 className="roomname">#{this.props.room}</h2>
                 <div className="scroll">
                     {this.state.messageHistory.map(m => ( <div className="textLook" key={m.timestamp}>{new Date(m.timestamp).toLocaleTimeString()} - {m.nick}: {m.message}</div> ))}
                 </div>

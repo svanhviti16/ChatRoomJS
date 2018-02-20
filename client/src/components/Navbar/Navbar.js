@@ -3,7 +3,7 @@ import React from 'react';
 const Navbar = ({username}) => {
 
     const logo = require('./images/ask.png');
-    console.log('username' + username);
+
     return(
         <div className="navBar">
             <div className="imgs">
