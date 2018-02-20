@@ -32,7 +32,7 @@ class RoomContainer extends React.Component {
                     {Object.keys(this.props.roomList).map((key) => {
                         return ( 
                             <li key={key} onClick={(e) => { this.props.handleClick(e) }}>
-                                <input 
+                                <input className="button button4"
                                     type='button' 
                                     value={key} 
                                 /> 
@@ -45,7 +45,7 @@ class RoomContainer extends React.Component {
                         <input 
                             type="submit" 
                             value="Leave room" 
-                            className="input input-big"
+                            className="button buttonLeaveRoom"
                             onChange={this.props.handleLeaveChange} />                       
                     </div>
                 </form>
