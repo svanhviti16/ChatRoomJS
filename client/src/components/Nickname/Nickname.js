@@ -28,7 +28,7 @@ export default class Nickname extends React.Component {
             if (available == '') {
                 alert('Have to input nickname!');
             }else if(!available) {
-                alert('That nickename is taken!');
+                alert('That nickname is taken!');
             } else {
                 this.props.onInput(this.state.username);
             }
