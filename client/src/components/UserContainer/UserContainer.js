@@ -7,7 +7,7 @@ const UserContainer = ({ userListForRoom, opsListForRoom}) => {
         opsRender = (
             <ul>
                 {Object.keys(opsListForRoom).map(function(key) {
-                    return <li key={key}>@{opsListForRoom[key]}</li>;
+                    return <li className="userButton button5" key={key}>@{opsListForRoom[key]}</li>;
                 })}
             </ul>)
     }
@@ -15,7 +15,7 @@ const UserContainer = ({ userListForRoom, opsListForRoom}) => {
         userRender = (
             <ul>
                 {Object.keys(userListForRoom).map(function(key) {
-                    return <li key={key}>{userListForRoom[key]}</li>;
+                    return <li className="userButton button5" ey={key}>{userListForRoom[key]}</li>;
                 })}
             </ul>
         ) 
