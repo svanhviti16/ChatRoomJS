@@ -18,6 +18,16 @@ class RoomContainer extends React.Component {
     render () {
         return (
             <div className="roomContainer">
+                <form onSubmit={this.props.handleSubmit} >
+                    <div>
+                        <input className="textNewRoom" type="text" placeholder="New room" onChange={this.props.handleChange} />
+                        <input 
+                            type="submit" 
+                            value="▶"
+                            className="button buttonNewRoom"
+                        />
+                    </div>
+                </form>
                 <ul>
                     {Object.keys(this.props.roomList).map((key) => {
                         return ( 
@@ -30,16 +40,6 @@ class RoomContainer extends React.Component {
                         );
                     })}
                 </ul>
-                <form onSubmit={this.props.handleSubmit} >
-                    <div>
-                        <input className="textNewRoom" type="text" placeholder="New room" onChange={this.props.handleChange} />
-                        <input 
-                            type="submit" 
-                            value="▶"
-                            className="button buttonNewRoom"
-                        />
-                    </div>
-                </form>
                 <form onSubmit={this.props.handleLeaveSubmit}>
                     <div>
                         <input 
