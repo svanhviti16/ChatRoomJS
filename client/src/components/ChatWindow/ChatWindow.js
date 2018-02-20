@@ -20,6 +20,7 @@ class ChatWindow extends React.Component {
             //messages = msgs;
             this.setState({messageHistory: messages});
             //console.log(msgs);
+            
         });
     }
     sendMessage (event) {

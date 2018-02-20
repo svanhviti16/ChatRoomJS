@@ -6,14 +6,14 @@ export default class Nickname extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            username: props.username,
             // room: 'lobby'
             //users: []
         };    
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+    //fært í maincontainer
     handleChange(event) {
         this.setState({username: event.target.value});
     }
@@ -30,7 +30,7 @@ export default class Nickname extends React.Component {
             }else if(!available) {
                 alert('That nickename is taken!');
             } else {
-                this.props.onInput();
+                this.props.onInput(this.state.username);
             }
         });
     }
@@ -41,7 +41,7 @@ export default class Nickname extends React.Component {
             <div className="nick-window">
                 <form onSubmit={this.handleSubmit}>
                     <div>
-                        <input type="text" className="inputs" placeholder="Enter your nickname" onChange={this.handleChange} />
+                        <input type="text" className="inputs" placeholder="Enter your nickname" onChange={ (e) => { this.handleChange(e) }} />
                         <input type="submit" className="inputs" id="enterbutton" value="▶" className="input input-big" />
                     </div>
                 </form>
