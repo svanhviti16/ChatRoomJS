@@ -1,13 +1,13 @@
 import React from 'react';
 
-const UserContainer = ({ userListForRoom, userListForOps}) => {
+const UserContainer = ({ userListForRoom, opsListForRoom}) => {
     let opsRender = '';
     let userRender = '';
-    if (userListForOps != undefined) {
+    if (opsListForRoom != undefined) {
         opsRender = (
             <ul>
-                {Object.keys(userListForOps).map(function(key) {
-                    return <li key={key}>@{userListForOps[key]}</li>;
+                {Object.keys(opsListForRoom).map(function(key) {
+                    return <li key={key}>@{opsListForRoom[key]}</li>;
                 })}
             </ul>)
     }
